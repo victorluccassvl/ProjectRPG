@@ -1,60 +1,38 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    [SerializeField] private int capacity = 5;
+    [SerializeField] private int capacity = 10;
     [SerializeField] private InventorySlot inventorySlotPrefab;
 
-    private InventorySlot[] inventory = null;
-    private int unusedSlotsHeadIndex = -1;
-    private int unusedSlotsTailIndex = -1;
-    private int usedSlotsHeadIndex = -1;
-    private int usedSlotsTailIndex = -1;
-    private int occupiedSlots = 0;
+    private List<InventorySlot> slotsPool = null;
+    private List<InventorySlot> inventory = null;
 
-    private void Start()
+    private void Awake()
     {
         this.capacity = Mathf.Max(1, this.capacity);
-        this.inventory = new InventorySlot[this.capacity];
-
-        unusedSlotsHeadIndex = 0;
-        unusedSlotsTailIndex = capacity - 1;
-        usedSlotsHeadIndex = -1;
-        usedSlotsTailIndex = -1;
+        this.slotsPool = new List<InventorySlot>(this.capacity);
+        this.inventory = new List<InventorySlot>(this.capacity);
 
         for (int i = 0; i < capacity; i++)
         {
-            inventory[i] = Instantiate<InventorySlot>(inventorySlotPrefab, this.transform);
-            inventory[i].nextSlotIndex = i + 1;
+            InventorySlot inventorySlot = Instantiate<InventorySlot>(inventorySlotPrefab, this.transform);
+            inventorySlot.enabled = false;
+            slotsPool.Add(inventorySlot);
         }
-        inventory[capacity - 1].nextSlotIndex = -1;
-
-        occupiedSlots = 0;
     }
 
     public bool AddItemToInventoryEnd(InventoryItem item)
     {
         if (item == null) return false;
+        if (slotsPool.Count == 0) return false;
 
-        int availableSlotIndex = PopUnusedSlot();
-        if (availableSlotIndex == -1) return false;
+        InventorySlot availableSlot = slotsPool[0];
+        availableSlot.SetItem(item);
 
-        inventory[availableSlotIndex].SetItem(item);
-
-        if (usedSlotsTailIndex == -1)
-        {
-            usedSlotsHeadIndex = availableSlotIndex;
-            usedSlotsTailIndex = availableSlotIndex;
-        }
-        else
-        {
-            inventory[usedSlotsTailIndex].nextSlotIndex = availableSlotIndex;
-            usedSlotsTailIndex = availableSlotIndex;
-        }
-
-        occupiedSlots++;
+        slotsPool.Remove(availableSlot);
+        inventory.Add(availableSlot);
 
         return true;
     }
@@ -62,97 +40,100 @@ public class Inventory : MonoBehaviour
     public bool AddItemToInventoryIndex(InventoryItem item, int index)
     {
         if (item == null) return false;
+        if (slotsPool.Count == 0) return false;
 
-        int availableSlotIndex = PopUnusedSlot();
-        if (availableSlotIndex == -1) return false;
+        InventorySlot availableSlot = slotsPool[0];
+        availableSlot.SetItem(item);
 
-        inventory[availableSlotIndex].SetItem(item);
-
-        index = Mathf.Clamp(index, 0, occupiedSlots);
-
-        int i = 0;
-        int previousIndex = -1;
-        int currentIndex = usedSlotsHeadIndex;
-        while (i != index)
-        {
-            previousIndex = currentIndex;
-            currentIndex = inventory[currentIndex].nextSlotIndex;
-            i++;
-        }
-
-        if (previousIndex == -1)
-        {
-            inventory[availableSlotIndex].nextSlotIndex = usedSlotsHeadIndex;
-
-            usedSlotsHeadIndex = availableSlotIndex;
-
-            if (usedSlotsTailIndex == -1)
-            {
-                usedSlotsTailIndex = availableSlotIndex;
-            }
-        }
-        else
-        {
-            inventory[availableSlotIndex].nextSlotIndex = inventory[previousIndex].nextSlotIndex;
-
-            inventory[previousIndex].nextSlotIndex = availableSlotIndex;
-
-            if (inventory[availableSlotIndex].nextSlotIndex == -1)
-            {
-                usedSlotsTailIndex = availableSlotIndex;
-            }
-        }
-
-        occupiedSlots++;
+        slotsPool.Remove(availableSlot);
+        inventory.Insert(index, availableSlot);
 
         return true;
     }
 
-    public void PrintInventory()
+    public bool RemoveItemFromInventory(InventoryItem item)
     {
-        string output = "";
+        if (item == null) return false;
 
-        output += "Occupied Slots : " + occupiedSlots + "\n";
+        InventorySlot slotToClear = inventory.Find(inventorySlot => inventorySlot.Item == item);
 
-        output += "-- Unused : ";
-        int i = unusedSlotsHeadIndex;
-        while (i != -1)
-        {
-            output += "[" + i + "]";
-            i = inventory[i].nextSlotIndex;
-        }
-        output += "\n";
+        if (slotToClear == null) return false;
 
-        output += "-- Used : ";
-        i = usedSlotsHeadIndex;
-        while (i != -1)
-        {
-            output += "[" + i + "]";
-            i = inventory[i].nextSlotIndex;
-        }
-        output += "\n";
+        inventory.Remove(slotToClear);
+        slotToClear.Clear();
+        slotsPool.Add(slotToClear);
 
-        Debug.Log(output);
+        return true;
     }
 
-    private int PopUnusedSlot()
+    public bool RemoveItemFromInventorySlot(InventorySlot slot)
     {
-        if (unusedSlotsHeadIndex == -1) return -1;
+        if (slot == null) return false;
+        if (!inventory.Contains(slot)) return false;
 
-        int availableSlotIndex = unusedSlotsHeadIndex;
+        inventory.Remove(slot);
+        slot.Clear();
+        slotsPool.Add(slot);
 
-        if (inventory[unusedSlotsHeadIndex].nextSlotIndex == -1)
+        return true;
+    }
+
+    public bool UpdateInventoryCapacity(int newCapacity)
+    {
+        int usedSlots = capacity - slotsPool.Count;
+
+        if (newCapacity < 1) return false;
+        if ((newCapacity < capacity) && (capacity - slotsPool.Count > newCapacity)) return false;
+
+        List<InventorySlot> newInventory = new List<InventorySlot>(newCapacity);
+        List<InventorySlot> newPool = new List<InventorySlot>(newCapacity);
+        this.capacity = newCapacity;
+
+        foreach (InventorySlot slot in inventory)
         {
-            unusedSlotsHeadIndex = -1;
-            unusedSlotsTailIndex = -1;
+            newInventory.Add(slot);
         }
-        else
+        inventory = newInventory;
+
+        int requiredSlots = newCapacity - usedSlots;
+
+        foreach (InventorySlot slot in slotsPool)
         {
-            unusedSlotsHeadIndex = inventory[unusedSlotsHeadIndex].nextSlotIndex;
+            if (requiredSlots > 0)
+            {
+                newPool.Add(slot);
+                requiredSlots--;
+            }
+            else
+            {
+                Destroy(slot.gameObject);
+            }
         }
 
-        inventory[availableSlotIndex].nextSlotIndex = -1;
+        for (int i = 0; i < requiredSlots; i++)
+        {
+            InventorySlot inventorySlot = Instantiate<InventorySlot>(inventorySlotPrefab, this.transform);
+            inventorySlot.enabled = false;
+            newPool.Add(inventorySlot);
+        }
 
-        return availableSlotIndex;
+        slotsPool = newPool;
+
+        return true;
+    }
+
+    public bool SwapItemsBetweenSlots(InventoryItem itemA, InventoryItem itemB)
+    {
+        if (itemA == null || itemB == null) return false;
+
+        InventorySlot slotA = inventory.Find(inventorySlot => inventorySlot.Item == itemA);
+        InventorySlot slotB = inventory.Find(inventorySlot => inventorySlot.Item == itemB);
+
+        if (slotA == null || slotB == null) return false;
+
+        slotB.SetItem(itemA);
+        slotA.SetItem(itemB);
+
+        return true;
     }
 }

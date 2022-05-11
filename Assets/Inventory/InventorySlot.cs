@@ -2,8 +2,20 @@ using UnityEngine;
 
 public class InventorySlot : MonoBehaviour
 {
-    [SerializeField] private InventoryItem item;
-    public int nextSlotIndex = -1;
+    private InventoryItem item;
+
+    public InventoryItem Item
+    {
+        get
+        {
+            return item;
+        }
+        private set
+        {
+            Clear();
+            item = value;
+        }
+    }
 
     public void Clear()
     {
@@ -12,7 +24,6 @@ public class InventorySlot : MonoBehaviour
 
     public void SetItem(InventoryItem item)
     {
-        this.Clear();
-        this.item = item;
+        Item = item;
     }
 }
