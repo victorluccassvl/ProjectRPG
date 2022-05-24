@@ -12,12 +12,6 @@ public class UI_Element : MonoBehaviour
 
     private void Awake()
     {
-        if (transform.childCount != childrenUI.Count)
-        {
-            Debug.LogError("UI_Element has inconsistent number of childs");
-            return;
-        }
-
         foreach (UI_Element element in childrenUI)
         {
             element.InitializeParentUI(this);

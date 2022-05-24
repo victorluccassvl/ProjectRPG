@@ -1,12 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Teste : MonoBehaviour
 {
-    public Inventory inventory;
+    public InventorySO inventory;
     public void Start()
     {
+        inventory = ScriptableObject.CreateInstance<InventorySO>();
 
+        inventory.Setup(10);
     }
 }
