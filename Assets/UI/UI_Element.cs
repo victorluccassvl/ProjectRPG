@@ -10,7 +10,7 @@ public class UI_Element : MonoBehaviour
 
     private Canvas mainCanvas;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         foreach (UI_Element element in childrenUI)
         {
@@ -20,12 +20,12 @@ public class UI_Element : MonoBehaviour
         mainCanvas = GetComponent<Canvas>();
     }
 
-    protected void OnEnable()
+    protected virtual void OnEnable()
     {
         Open();
     }
 
-    protected void OnDisable()
+    protected virtual void OnDisable()
     {
         Close();
     }
