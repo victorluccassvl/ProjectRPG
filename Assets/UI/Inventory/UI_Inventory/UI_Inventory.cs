@@ -1,49 +1,76 @@
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 [RequireComponent(typeof(RectTransform))]
-[ExecuteInEditMode]
-public class UI_Inventory : UI_Element
+[RequireComponent(typeof(Canvas))]
+public class UI_Inventory : MonoBehaviour
 {
+    [Header("Configuration Data")]
+    [SerializeField] private UI_InventorySO configData;
+
+    [Space(10)]
+    [Header("Editor References")]
     [SerializeField] private UI_Inventory_Header header;
     [SerializeField] private UI_Inventory_SlotGrid slotGrid;
     [SerializeField] private UI_Inventory_Footer footer;
 
+    [SerializeField] private RectTransform backgroundTransform;
+    [SerializeField] private RectTransform mainLayoutTransform;
 
-    [Header("Background")]
-    [SerializeField] RectTransform backgroundTransform;
-    [SerializeField] private float backgroundMargin;
-
-    [Header("Main Layout")]
-    [SerializeField] RectTransform mainLayoutTransform;
-
-    [SerializeField] private Image slotPrefab;
-    private List<Image> slotImage;
-
-    protected override void OnEnable()
+    public Vector2 Position
     {
-        base.OnEnable();
-        Setup(null);
-    }
-
-    public void SetupInventoryData(InventorySO inventoryData)
-    {
-        for (int i = 0; i < inventoryData.Capacity; i++)
+        get
         {
-            Image image = Instantiate<Image>(slotPrefab, this.transform);
-            slotImage.Insert(i, image);
+            return mainLayoutTransform.anchoredPosition;
+        }
+        set
+        {
+            mainLayoutTransform.anchoredPosition = value;
         }
     }
 
-    public void Setup(InventorySO inventoryData)
+    private void OnEnable()
     {
-        slotGrid.Setup(inventoryData);
-        header.Setup(slotGrid.slotGroupTransform.sizeDelta.x);
-        footer.Setup(slotGrid.slotGroupTransform.sizeDelta.x);
+        if (!IsValidData())
+        {
+            this.enabled = false;
+            return;
+        }
 
-        header.headerTransform.anchoredPosition = Vector2.zero;
-        slotGrid.slotGroupTransform.anchoredPosition = header.headerTransform.anchoredPosition + Vector2.down * header.headerTransform.sizeDelta.y;
-        footer.footerTransform.anchoredPosition = slotGrid.slotGroupTransform.anchoredPosition + Vector2.down * slotGrid.slotGroupTransform.sizeDelta.y;
+        Invoke("Setup", 5);
+        //Setup();
+    }
+
+    private void Close()
+    {
+        this.enabled = false;
+    }
+
+    private bool IsValidData()
+    {
+        return true;
+    }
+
+    private void Setup()
+    {
+        if (!IsValidData()) return;
+
+        Vector2 position = Vector2.zero;
+
+        float windowHeight = 0f;
+        float windowWidth = configData.slotSize * configData.slotStartingColumns;
+        windowWidth += (configData.slotStartingColumns + 1) * configData.slotSpacing;
+        header.Setup(position, configData.headerText, windowWidth, configData.headerHeight, configData.headerButtonMargin, Close);
+
+        int slotLines = Mathf.CeilToInt(((float)configData.inventoryData.Capacity) / configData.slotStartingColumns);
+        position += Vector2.down * configData.headerHeight;
+        slotGrid.Setup(position, configData.slotSize, configData.slotSpacing, configData.slotStartingColumns, slotLines, configData.inventoryData);
+
+        float slotsHeight = slotLines * configData.slotSize + (slotLines + 1) * configData.slotSpacing;
+        position += Vector2.down * slotsHeight;
+        footer.Setup(position, configData.footerHeight, windowWidth);
+
+        windowHeight = configData.headerHeight + slotsHeight + configData.footerHeight;
+        backgroundTransform.sizeDelta = new Vector2(windowWidth + configData.backgroundMargin * 2, windowHeight + configData.backgroundMargin * 2);
+        backgroundTransform.anchoredPosition = configData.backgroundMargin * (Vector2.left + Vector2.up);
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(fileName = "InventorySO", menuName = "ScriptableObjects/InventorySO")]
 public class InventorySO : ScriptableObject
 {
     [SerializeField] private int capacity = 10;

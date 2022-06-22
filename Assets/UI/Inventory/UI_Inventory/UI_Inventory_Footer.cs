@@ -1,23 +1,22 @@
 using UnityEngine;
-using TMPro;
 
 [RequireComponent(typeof(RectTransform))]
-[ExecuteInEditMode]
 public class UI_Inventory_Footer : MonoBehaviour
 {
-    [SerializeField] private float height;
-    [SerializeField] private TextMeshProUGUI footerText;
-    [SerializeField] private RectTransform closeButton;
+    [SerializeField] private RectTransform expandButton;
 
-    [HideInInspector] public RectTransform footerTransform;
+    private RectTransform footerTransform;
 
     private void Awake()
     {
         footerTransform = GetComponent<RectTransform>();
     }
 
-    public void Setup(float width)
+    public void Setup(Vector2 position, float height, float width)
     {
+        footerTransform = GetComponent<RectTransform>();
+        footerTransform.anchoredPosition = position;
+
         Vector2 footerTransformSize;
         footerTransformSize.x = width;
         footerTransformSize.y = height;
