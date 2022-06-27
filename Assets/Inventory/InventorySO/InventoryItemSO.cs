@@ -4,6 +4,7 @@ public class InventoryItemSO : ScriptableObject
 {
     [SerializeField] private int itemID = -1;
     [SerializeField] private bool stackable;
+    [SerializeField] private int quantity;
     [SerializeField] private bool usable;
     [SerializeField] private Sprite icon;
 
@@ -15,6 +16,11 @@ public class InventoryItemSO : ScriptableObject
     public bool IsStackable()
     {
         return stackable;
+    }
+
+    public int GetQuantity()
+    {
+        return quantity;
     }
 
     public int GetItemID()

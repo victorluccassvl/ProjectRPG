@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -5,11 +6,14 @@ using UnityEngine.UI;
 [RequireComponent(typeof(RectTransform))]
 public class UI_Inventory_SlotGrid : MonoBehaviour
 {
+    [SerializeField] private GameObject slotTemplate;
+
     private int slotsCurrentColumns;
     private int slotsCurrentLines;
 
     private GridLayoutGroup slotGridLayout;
     private RectTransform slotGroupTransform;
+    private List<GameObject> currentSlots;
 
     private void Awake()
     {
@@ -24,7 +28,7 @@ public class UI_Inventory_SlotGrid : MonoBehaviour
         slotGridLayout.cellSize = size * Vector2.one;
         slotGridLayout.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
         slotGridLayout.constraintCount = startingColumns;
-        slotGridLayout.spacing = size * Vector3.one;
+        slotGridLayout.spacing = spacing * Vector3.one;
 
         slotsCurrentColumns = startingColumns;
         slotsCurrentLines = startingLines;

@@ -1,9 +1,11 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(RectTransform))]
 public class UI_Inventory_Footer : MonoBehaviour
 {
     [SerializeField] private RectTransform expandButton;
+    [SerializeField] private UI_Inventory_Footer_ExpandAnchor expandAnchor;
 
     private RectTransform footerTransform;
 
@@ -12,7 +14,7 @@ public class UI_Inventory_Footer : MonoBehaviour
         footerTransform = GetComponent<RectTransform>();
     }
 
-    public void Setup(Vector2 position, float height, float width)
+    public void Setup(Vector2 position, float height, float width, float anchorMargin, Action<float> draggingAction)
     {
         footerTransform = GetComponent<RectTransform>();
         footerTransform.anchoredPosition = position;
@@ -22,5 +24,7 @@ public class UI_Inventory_Footer : MonoBehaviour
         footerTransformSize.y = height;
 
         footerTransform.sizeDelta = footerTransformSize;
+
+        expandAnchor.Setup(height, anchorMargin, draggingAction);
     }
 }

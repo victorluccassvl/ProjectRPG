@@ -14,10 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoryData: {fileID: 11400000, guid: 7774886ad6525e144826d44ceb8a10e6, type: 2}
   headerText: Inventory
-  headerHeight: 10
-  headerButtonMargin: 1
-  slotSize: 30
-  slotSpacing: 1
-  slotStartingColumns: 4
-  footerHeight: 10
-  backgroundMargin: 2
+  headerHeight: 30
+  headerButtonMargin: 3
+  slotSize: 90
+  slotSpacing: 3
+  slotStartingColumns: 6
+  footerHeight: 30
+  footerAnchorMargin: 3
+  backgroundMargin: 6

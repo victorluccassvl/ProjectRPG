@@ -14,6 +14,7 @@ public class UI_InventorySO : ScriptableObject
     public int slotStartingColumns;
 
     public float footerHeight;
+    public float footerAnchorMargin;
 
     public float backgroundMargin;
 }

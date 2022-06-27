@@ -28,6 +28,18 @@ public class UI_Inventory : MonoBehaviour
         }
     }
 
+    float valueTest = 100f;
+    Vector2 originalPos;
+
+    private void Awake()
+    {
+        originalPos = Position;
+    }
+    private void Update()
+    {
+        Position = Vector2.zero;
+    }
+
     private void OnEnable()
     {
         if (!IsValidData())
@@ -36,13 +48,29 @@ public class UI_Inventory : MonoBehaviour
             return;
         }
 
-        Invoke("Setup", 5);
-        //Setup();
+        Invoke("Setup", 1f);
     }
 
-    private void Close()
+    public void Open()
     {
-        this.enabled = false;
+        gameObject.SetActive(true);
+    }
+
+    public void Close()
+    {
+        gameObject.SetActive(false);
+    }
+
+    private void Expand(float horizontalOffset)
+    {
+        int columnsToAddOrRemove = Mathf.FloorToInt(horizontalOffset / (configData.slotSize + configData.slotSpacing));
+
+        if (columnsToAddOrRemove == 0) return;
+        if (columnsToAddOrRemove < 0 && configData.slotStartingColumns == 1) return;
+        if (columnsToAddOrRemove > 0 && configData.slotStartingColumns + columnsToAddOrRemove > configData.inventoryData.Capacity) return;
+
+        configData.slotStartingColumns += columnsToAddOrRemove;
+        Setup();
     }
 
     private bool IsValidData()
@@ -67,7 +95,7 @@ public class UI_Inventory : MonoBehaviour
 
         float slotsHeight = slotLines * configData.slotSize + (slotLines + 1) * configData.slotSpacing;
         position += Vector2.down * slotsHeight;
-        footer.Setup(position, configData.footerHeight, windowWidth);
+        footer.Setup(position, configData.footerHeight, windowWidth, configData.footerAnchorMargin, Expand);
 
         windowHeight = configData.headerHeight + slotsHeight + configData.footerHeight;
         backgroundTransform.sizeDelta = new Vector2(windowWidth + configData.backgroundMargin * 2, windowHeight + configData.backgroundMargin * 2);
