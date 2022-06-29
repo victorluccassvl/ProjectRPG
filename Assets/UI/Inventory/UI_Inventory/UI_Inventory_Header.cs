@@ -7,6 +7,7 @@ public class UI_Inventory_Header : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI headerText;
     [SerializeField] private UI_Inventory_Header_CloseButton closeButton;
+    [SerializeField] private UI_Inventory_Header_DragPanel dragPanel;
 
     private RectTransform headerTransform;
 
@@ -15,7 +16,7 @@ public class UI_Inventory_Header : MonoBehaviour
         headerTransform = GetComponent<RectTransform>();
     }
 
-    public void Setup(Vector3 position, string title, float width, float height, float buttonMargin, Action closeAction)
+    public void Setup(Vector2 position, string title, float width, float height, float buttonMargin, Action closeAction, Action<Vector2, Vector2> dragAction)
     {
         headerTransform.anchoredPosition = position;
 
@@ -28,5 +29,6 @@ public class UI_Inventory_Header : MonoBehaviour
         headerText.text = title;
 
         closeButton.Setup(height, buttonMargin, closeAction);
+        dragPanel.Setup(width - height - 2 * buttonMargin, height, dragAction);
     }
 }

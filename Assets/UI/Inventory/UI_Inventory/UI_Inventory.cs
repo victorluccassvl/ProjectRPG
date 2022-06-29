@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(RectTransform))]
 [RequireComponent(typeof(Canvas))]
@@ -13,8 +14,22 @@ public class UI_Inventory : MonoBehaviour
     [SerializeField] private UI_Inventory_SlotGrid slotGrid;
     [SerializeField] private UI_Inventory_Footer footer;
 
-    [SerializeField] private RectTransform backgroundTransform;
     [SerializeField] private RectTransform mainLayoutTransform;
+
+    private CanvasScaler canvasScaler;
+    private CanvasScaler CanvasScaler
+    {
+        get
+        {
+            if (canvasScaler == null) canvasScaler = GetComponent<CanvasScaler>();
+
+            return canvasScaler;
+        }
+        set
+        {
+            canvasScaler = value;
+        }
+    }
 
     public Vector2 Position
     {
@@ -28,18 +43,6 @@ public class UI_Inventory : MonoBehaviour
         }
     }
 
-    float valueTest = 100f;
-    Vector2 originalPos;
-
-    private void Awake()
-    {
-        originalPos = Position;
-    }
-    private void Update()
-    {
-        Position = Vector2.zero;
-    }
-
     private void OnEnable()
     {
         if (!IsValidData())
@@ -48,7 +51,12 @@ public class UI_Inventory : MonoBehaviour
             return;
         }
 
-        Invoke("Setup", 1f);
+        Invoke("Teste", 2f);
+    }
+
+    public void Teste()
+    {
+        Setup(new Vector2(Screen.width / 2, Screen.height / 2));
     }
 
     public void Open()
@@ -61,16 +69,18 @@ public class UI_Inventory : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    private void Expand(float horizontalOffset)
+    private void Drag(Vector2 dragScreenPosition, Vector2 startingDragScreenPosition)
     {
-        int columnsToAddOrRemove = Mathf.FloorToInt(horizontalOffset / (configData.slotSize + configData.slotSpacing));
+        float scaleRatio = CanvasScaler.ScreenScaleRatio();
+        Vector2 position = dragScreenPosition * scaleRatio;
+        Vector2 startingPosition = startingDragScreenPosition * scaleRatio;
 
-        if (columnsToAddOrRemove == 0) return;
-        if (columnsToAddOrRemove < 0 && configData.slotStartingColumns == 1) return;
-        if (columnsToAddOrRemove > 0 && configData.slotStartingColumns + columnsToAddOrRemove > configData.inventoryData.Capacity) return;
+        position -= startingPosition;
 
-        configData.slotStartingColumns += columnsToAddOrRemove;
-        Setup();
+        position.x = Mathf.Clamp(position.x, 0f, CanvasScaler.referenceResolution.x - mainLayoutTransform.sizeDelta.x);
+        position.y = Mathf.Clamp(position.y, 0f, CanvasScaler.referenceResolution.y - mainLayoutTransform.sizeDelta.y);
+
+        Setup(position);
     }
 
     private bool IsValidData()
@@ -78,27 +88,30 @@ public class UI_Inventory : MonoBehaviour
         return true;
     }
 
-    private void Setup()
+    private void Setup(Vector2 groupPosition)
     {
         if (!IsValidData()) return;
 
-        Vector2 position = Vector2.zero;
+        int columns, lines;
+        columns = Mathf.CeilToInt(Mathf.Sqrt(configData.inventoryData.Capacity));
+        lines = Mathf.FloorToInt(Mathf.Sqrt(configData.inventoryData.Capacity));
 
         float windowHeight = 0f;
-        float windowWidth = configData.slotSize * configData.slotStartingColumns;
-        windowWidth += (configData.slotStartingColumns + 1) * configData.slotSpacing;
-        header.Setup(position, configData.headerText, windowWidth, configData.headerHeight, configData.headerButtonMargin, Close);
+        float windowWidth = configData.slotSize * columns + (columns + 1) * configData.slotSpacing;
 
-        int slotLines = Mathf.CeilToInt(((float)configData.inventoryData.Capacity) / configData.slotStartingColumns);
-        position += Vector2.down * configData.headerHeight;
-        slotGrid.Setup(position, configData.slotSize, configData.slotSpacing, configData.slotStartingColumns, slotLines, configData.inventoryData);
+        Vector2 elementPosition = configData.backgroundMargin * (Vector2.up + Vector2.right);
+        footer.Setup(elementPosition, windowWidth, configData.footerHeight, configData.footerAnchorMargin);
 
-        float slotsHeight = slotLines * configData.slotSize + (slotLines + 1) * configData.slotSpacing;
-        position += Vector2.down * slotsHeight;
-        footer.Setup(position, configData.footerHeight, windowWidth, configData.footerAnchorMargin, Expand);
+        elementPosition += Vector2.up * configData.footerHeight;
+        float slotsHeight = lines * configData.slotSize + (lines + 1) * configData.slotSpacing;
+        slotGrid.Setup(elementPosition, configData.slotSize, configData.slotSpacing, lines, columns, configData.inventoryData);
+
+        elementPosition += Vector2.up * slotsHeight;
+        header.Setup(elementPosition, configData.headerText, windowWidth, configData.headerHeight, configData.headerButtonMargin, Close, Drag);
 
         windowHeight = configData.headerHeight + slotsHeight + configData.footerHeight;
-        backgroundTransform.sizeDelta = new Vector2(windowWidth + configData.backgroundMargin * 2, windowHeight + configData.backgroundMargin * 2);
-        backgroundTransform.anchoredPosition = configData.backgroundMargin * (Vector2.left + Vector2.up);
+
+        mainLayoutTransform.anchoredPosition = groupPosition;
+        mainLayoutTransform.sizeDelta = new Vector2(windowWidth, windowHeight) + 2 * configData.backgroundMargin * Vector2.one;
     }
 }
