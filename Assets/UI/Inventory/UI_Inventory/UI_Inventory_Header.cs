@@ -16,7 +16,7 @@ public class UI_Inventory_Header : MonoBehaviour
         headerTransform = GetComponent<RectTransform>();
     }
 
-    public void Setup(Vector2 position, string title, float width, float height, float buttonMargin, Action closeAction, Action<Vector2, Vector2> dragAction)
+    public void Setup(Vector2 position, string title, float width, float height, float buttonMargin, Action closeAction, Action<Vector2> dragAction)
     {
         headerTransform.anchoredPosition = position;
 

@@ -69,18 +69,17 @@ public class UI_Inventory : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    private void Drag(Vector2 dragScreenPosition, Vector2 startingDragScreenPosition)
+    private void Drag(Vector2 dragDeltaScreenPosition)
     {
         float scaleRatio = CanvasScaler.ScreenScaleRatio();
-        Vector2 position = dragScreenPosition * scaleRatio;
-        Vector2 startingPosition = startingDragScreenPosition * scaleRatio;
+        Vector2 localSpaceDelta = dragDeltaScreenPosition * scaleRatio;
 
-        position -= startingPosition;
-
+        Vector2 position;
+        position = Position + localSpaceDelta;
         position.x = Mathf.Clamp(position.x, 0f, CanvasScaler.referenceResolution.x - mainLayoutTransform.sizeDelta.x);
         position.y = Mathf.Clamp(position.y, 0f, CanvasScaler.referenceResolution.y - mainLayoutTransform.sizeDelta.y);
 
-        Setup(position);
+        Position = position;
     }
 
     private bool IsValidData()

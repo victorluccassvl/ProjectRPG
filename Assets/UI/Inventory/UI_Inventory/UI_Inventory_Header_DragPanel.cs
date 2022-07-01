@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 [RequireComponent(typeof(EventTrigger))]
 public class UI_Inventory_Header_DragPanel : MonoBehaviour
 {
-    private Action<Vector2, Vector2> draggingAction = null;
+    private Action<Vector2> draggingAction = null;
 
     private EventTrigger panelEventTrigger;
     private RectTransform dragPanelRectTransform;
@@ -22,7 +22,7 @@ public class UI_Inventory_Header_DragPanel : MonoBehaviour
         panelEventTrigger.triggers.Add(onDrag);
     }
 
-    public void Setup(float width, float height, Action<Vector2, Vector2> draggingAction)
+    public void Setup(float width, float height, Action<Vector2> draggingAction)
     {
         this.draggingAction = draggingAction;
 
@@ -38,7 +38,7 @@ public class UI_Inventory_Header_DragPanel : MonoBehaviour
     {
         if (data is PointerEventData pointerData)
         {
-            draggingAction?.Invoke(pointerData.position, pointerData.pressPosition);
+            draggingAction?.Invoke(pointerData.delta);
         }
     }
 }
