@@ -4,14 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(RectTransform))]
 public class UI_Inventory_Footer : MonoBehaviour
 {
-    [SerializeField] private RectTransform expandButton;
-
-    private RectTransform footerRectTransform;
-
-    private void Awake()
-    {
-        footerRectTransform = GetComponent<RectTransform>();
-    }
+    [SerializeField] private RectTransform footerRectTransform;
 
     public void Setup(Vector2 position, float width, float height, float anchorMargin)
     {

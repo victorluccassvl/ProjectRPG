@@ -5,16 +5,10 @@ using TMPro;
 [RequireComponent(typeof(RectTransform))]
 public class UI_Inventory_Header : MonoBehaviour
 {
+    [SerializeField] private RectTransform headerTransform;
     [SerializeField] private TextMeshProUGUI headerText;
     [SerializeField] private UI_Inventory_Header_CloseButton closeButton;
     [SerializeField] private UI_Inventory_Header_DragPanel dragPanel;
-
-    private RectTransform headerTransform;
-
-    private void Awake()
-    {
-        headerTransform = GetComponent<RectTransform>();
-    }
 
     public void Setup(Vector2 position, string title, float width, float height, float buttonMargin, Action closeAction, Action<Vector2> dragAction)
     {

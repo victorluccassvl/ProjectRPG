@@ -6,15 +6,12 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Button))]
 public class UI_Inventory_Header_CloseButton : MonoBehaviour
 {
+    [SerializeField] private RectTransform closeButtonRectTransform;
+    [SerializeField] private Button closeButton;
     private Action closeAction = null;
-    private Button closeButton;
-    private RectTransform closeButtonRectTransform;
 
     private void Awake()
     {
-        closeButton = GetComponent<Button>();
-        closeButtonRectTransform = GetComponent<RectTransform>();
-
         closeButton.onClick.AddListener(() => closeAction?.Invoke());
     }
 

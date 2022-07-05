@@ -1,8 +1,10 @@
 using UnityEngine;
+using UnityEditor;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(RectTransform))]
 [RequireComponent(typeof(Canvas))]
+[ExecuteInEditMode]
 public class UI_Inventory : MonoBehaviour
 {
     [Header("Configuration Data")]
@@ -10,26 +12,11 @@ public class UI_Inventory : MonoBehaviour
 
     [Space(10)]
     [Header("Editor References")]
+    [SerializeField] private RectTransform mainLayoutTransform;
     [SerializeField] private UI_Inventory_Header header;
     [SerializeField] private UI_Inventory_SlotGrid slotGrid;
     [SerializeField] private UI_Inventory_Footer footer;
-
-    [SerializeField] private RectTransform mainLayoutTransform;
-
-    private CanvasScaler canvasScaler;
-    private CanvasScaler CanvasScaler
-    {
-        get
-        {
-            if (canvasScaler == null) canvasScaler = GetComponent<CanvasScaler>();
-
-            return canvasScaler;
-        }
-        set
-        {
-            canvasScaler = value;
-        }
-    }
+    [SerializeField] private CanvasScaler canvasScaler;
 
     public Vector2 Position
     {
@@ -51,11 +38,6 @@ public class UI_Inventory : MonoBehaviour
             return;
         }
 
-        Invoke("Teste", 2f);
-    }
-
-    public void Teste()
-    {
         Setup(new Vector2(Screen.width / 2, Screen.height / 2));
     }
 
@@ -71,13 +53,13 @@ public class UI_Inventory : MonoBehaviour
 
     private void Drag(Vector2 dragDeltaScreenPosition)
     {
-        float scaleRatio = CanvasScaler.ScreenScaleRatio();
+        float scaleRatio = canvasScaler.ScreenScaleRatio();
         Vector2 localSpaceDelta = dragDeltaScreenPosition * scaleRatio;
 
         Vector2 position;
         position = Position + localSpaceDelta;
-        position.x = Mathf.Clamp(position.x, 0f, CanvasScaler.referenceResolution.x - mainLayoutTransform.sizeDelta.x);
-        position.y = Mathf.Clamp(position.y, 0f, CanvasScaler.referenceResolution.y - mainLayoutTransform.sizeDelta.y);
+        position.x = Mathf.Clamp(position.x, 0f, canvasScaler.referenceResolution.x - mainLayoutTransform.sizeDelta.x);
+        position.y = Mathf.Clamp(position.y, 0f, canvasScaler.referenceResolution.y - mainLayoutTransform.sizeDelta.y);
 
         Position = position;
     }
@@ -113,4 +95,5 @@ public class UI_Inventory : MonoBehaviour
         mainLayoutTransform.anchoredPosition = groupPosition;
         mainLayoutTransform.sizeDelta = new Vector2(windowWidth, windowHeight) + 2 * configData.backgroundMargin * Vector2.one;
     }
+
 }

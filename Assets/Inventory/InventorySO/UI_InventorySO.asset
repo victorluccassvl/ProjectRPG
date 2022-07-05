@@ -18,7 +18,6 @@ MonoBehaviour:
   headerButtonMargin: 3
   slotSize: 90
   slotSpacing: 3
-  slotStartingColumns: 6
   footerHeight: 30
   footerAnchorMargin: 3
   backgroundMargin: 6

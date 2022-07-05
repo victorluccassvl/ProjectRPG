@@ -6,16 +6,12 @@ using UnityEngine.EventSystems;
 [RequireComponent(typeof(EventTrigger))]
 public class UI_Inventory_Header_DragPanel : MonoBehaviour
 {
+    [SerializeField] private RectTransform dragPanelRectTransform;
+    [SerializeField] private EventTrigger panelEventTrigger;
     private Action<Vector2> draggingAction = null;
-
-    private EventTrigger panelEventTrigger;
-    private RectTransform dragPanelRectTransform;
 
     private void Awake()
     {
-        dragPanelRectTransform = GetComponent<RectTransform>();
-        panelEventTrigger = GetComponent<EventTrigger>();
-
         EventTrigger.Entry onDrag = new EventTrigger.Entry();
         onDrag.eventID = EventTriggerType.Drag;
         onDrag.callback.AddListener(OnDrag);

@@ -6,20 +6,13 @@ using UnityEngine.UI;
 [RequireComponent(typeof(RectTransform))]
 public class UI_Inventory_SlotGrid : MonoBehaviour
 {
+    [SerializeField] private RectTransform slotGroupTransform;
+    [SerializeField] private GridLayoutGroup slotGridLayout;
     [SerializeField] private GameObject slotTemplate;
 
     private int columns;
     private int lines;
-
-    private GridLayoutGroup slotGridLayout;
-    private RectTransform slotGroupTransform;
     private List<GameObject> currentSlots;
-
-    private void Awake()
-    {
-        slotGridLayout = GetComponent<GridLayoutGroup>();
-        slotGroupTransform = GetComponent<RectTransform>();
-    }
 
     public void Setup(Vector2 position, float size, float spacing, int lines, int columns, InventorySO inventoryData)
     {
