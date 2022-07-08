@@ -1,8 +1,20 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class ActionInputHandler : MonoBehaviour
+public class InputManager : MonoBehaviourSingleton<InputManager>
 {
+    public InputActions actions;
+
+    protected override void Awake()
+    {
+        base.Awake();
+
+        actions = new InputActions();
+        actions.UI.Enable();
+    }
+
+
     /*
     private void Awake()
     {
