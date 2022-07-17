@@ -7,6 +7,12 @@ public class MonoBehaviourSingleton<T> : MonoBehaviour where T : Component
     {
         get
         {
+            if (_instance == null)
+            {
+                _instance = FindObjectOfType<T>();
+                if (_instance == null) Debug.LogError("Singleton " + typeof(T).ToString() + " not found.");
+            }
+
             return _instance;
         }
     }
@@ -16,9 +22,6 @@ public class MonoBehaviourSingleton<T> : MonoBehaviour where T : Component
         if (_instance == null)
         {
             _instance = GetComponent<T>();
-
-            if (_instance == null) Debug.LogError("Singleton " + typeof(T).ToString() + " not found.");
-
         }
         else
         {

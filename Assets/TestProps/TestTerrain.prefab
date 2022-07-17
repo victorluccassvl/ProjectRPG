@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3213984694252168300}
   m_Layer: 0
   m_Name: Ground
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 3770386084633379740}
   m_Layer: 0
   m_Name: PlanePivot (5)
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -144,7 +144,7 @@ GameObject:
   - component: {fileID: 7821074611233343680}
   m_Layer: 0
   m_Name: Plane
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -242,7 +242,7 @@ GameObject:
   - component: {fileID: 2255239294328227861}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -339,7 +339,7 @@ GameObject:
   - component: {fileID: 8861669776068616944}
   m_Layer: 0
   m_Name: Plane
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -434,7 +434,7 @@ GameObject:
   - component: {fileID: 5405820246906493336}
   m_Layer: 0
   m_Name: PlanePivot
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -469,7 +469,7 @@ GameObject:
   - component: {fileID: 2900299048242345030}
   m_Layer: 0
   m_Name: Plane
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -567,7 +567,7 @@ GameObject:
   - component: {fileID: 6967719158741059941}
   m_Layer: 0
   m_Name: Stair (6)
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -662,7 +662,7 @@ GameObject:
   - component: {fileID: 768502860943374553}
   m_Layer: 0
   m_Name: Walls
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -728,7 +728,7 @@ GameObject:
   - component: {fileID: 130772444679395403}
   m_Layer: 0
   m_Name: Stairs
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -798,7 +798,7 @@ GameObject:
   - component: {fileID: 478056561304312745}
   m_Layer: 0
   m_Name: PlanePivot (6)
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -833,7 +833,7 @@ GameObject:
   - component: {fileID: 8192832779865515191}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -930,7 +930,7 @@ GameObject:
   - component: {fileID: 7311906993499969672}
   m_Layer: 0
   m_Name: Stair (7)
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -1027,7 +1027,7 @@ GameObject:
   - component: {fileID: 3405992058816483400}
   m_Layer: 0
   m_Name: Stair (2)
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -1121,7 +1121,7 @@ GameObject:
   - component: {fileID: 7339971495506930018}
   m_Layer: 0
   m_Name: TestTerrain
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -1159,7 +1159,7 @@ GameObject:
   - component: {fileID: 4806313951402744126}
   m_Layer: 0
   m_Name: Stair
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -1253,7 +1253,7 @@ GameObject:
   - component: {fileID: 7421320738484247097}
   m_Layer: 0
   m_Name: PlanePivot (3)
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -1288,7 +1288,7 @@ GameObject:
   - component: {fileID: 3025281036846155924}
   m_Layer: 0
   m_Name: Stair (5)
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -1382,7 +1382,7 @@ GameObject:
   - component: {fileID: 1459304167870685972}
   m_Layer: 0
   m_Name: PlanePivot (1)
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -1415,7 +1415,7 @@ GameObject:
   - component: {fileID: 3876157359206727363}
   m_Layer: 0
   m_Name: Ramps
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -1488,7 +1488,7 @@ GameObject:
   - component: {fileID: 1674617795594483348}
   m_Layer: 0
   m_Name: Stair (3)
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -1582,7 +1582,7 @@ GameObject:
   - component: {fileID: 62034087178514540}
   m_Layer: 0
   m_Name: PlanePivot (8)
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -1617,7 +1617,7 @@ GameObject:
   - component: {fileID: 2140086373555745686}
   m_Layer: 0
   m_Name: Plane
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -1715,7 +1715,7 @@ GameObject:
   - component: {fileID: 3676661979740034540}
   m_Layer: 0
   m_Name: Plane
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -1813,7 +1813,7 @@ GameObject:
   - component: {fileID: 505122833019982291}
   m_Layer: 0
   m_Name: Stair (1)
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -1910,7 +1910,7 @@ GameObject:
   - component: {fileID: 5210220533661272075}
   m_Layer: 0
   m_Name: Plane
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -2008,7 +2008,7 @@ GameObject:
   - component: {fileID: 1665265571958672893}
   m_Layer: 0
   m_Name: Plane
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -2106,7 +2106,7 @@ GameObject:
   - component: {fileID: 2025902451881460224}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -2203,7 +2203,7 @@ GameObject:
   - component: {fileID: 212333873494311984}
   m_Layer: 0
   m_Name: Plane
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -2301,7 +2301,7 @@ GameObject:
   - component: {fileID: 3790483006189823498}
   m_Layer: 0
   m_Name: Plane
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -2396,7 +2396,7 @@ GameObject:
   - component: {fileID: 8069527444527135186}
   m_Layer: 0
   m_Name: PlanePivot (7)
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -2431,7 +2431,7 @@ GameObject:
   - component: {fileID: 832626381685797374}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -2525,7 +2525,7 @@ GameObject:
   - component: {fileID: 3359912654437063879}
   m_Layer: 0
   m_Name: PlanePivot (4)
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -2560,7 +2560,7 @@ GameObject:
   - component: {fileID: 8963607702979143781}
   m_Layer: 0
   m_Name: Stair (4)
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -2654,7 +2654,7 @@ GameObject:
   - component: {fileID: 8631727588530852515}
   m_Layer: 0
   m_Name: PlanePivot (2)
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -2689,7 +2689,7 @@ GameObject:
   - component: {fileID: 5039340257818800043}
   m_Layer: 0
   m_Name: Stair (8)
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
